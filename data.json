@@ -1,27 +1,27 @@
 {
     "categories": [
         {
-            "categoryPk": 1,
+            "id": 1,
             "categoryCode": "PETITION",
             "categoryName": "대선청원"
         },
         {
-            "categoryPk": 2,
+            "id": 2,
             "categoryCode": "FREE",
             "categoryName": "자유글"
         },
         {
-            "categoryPk": 3,
+            "id": 3,
             "categoryCode": "QNA",
             "categoryName": "질문/답변"
         },
         {
-            "categoryPk": 4,
+            "id": 4,
             "categoryCode": "NEWS",
             "categoryName": "뉴스"
         },
         {
-            "categoryPk": 5,
+            "id": 5,
             "categoryCode": "TIP",
             "categoryName": "노하우"
         }
