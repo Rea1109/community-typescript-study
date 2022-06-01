@@ -1,31 +1,18 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CommunityDetail from './pages/CommunityDetail';
+import CommunityList from './pages/CommunityList';
+import CommunityNew from './pages/CommunityNew';
 
 function App() {
-    const handleData = () => {
-        fetch('http://localhost:3001/posts')
-            .then(res => res.json())
-            .then(data => console.log(data));
-    };
-
-    const createData = () => {
-        fetch('http://localhost:3001/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title: 'Test',
-                content: 'I am testing!',
-                id: 41,
-            }),
-        }).then(res => console.log(res));
-    };
-
     return (
-        <div>
-            <button onClick={handleData}>데이터 가져오기</button>
-            <button onClick={createData}>데이터 등록해보기</button>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<CommunityList />} />
+                <Route path="/community/post/:post_pk" element={<CommunityDetail />} />
+                <Route path="/community/post/new" element={<CommunityNew />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'NotoTitle';
+    src: url('./assets/fonts/NotoSansKR-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'NotoText';
+    src: url('./assets//fonts/NotoSansKR-Medium.otf') format('opentype');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+}
+
+#root {
+    max-width: 360px;
+    width: 100%;
+    margin: auto;
+}
