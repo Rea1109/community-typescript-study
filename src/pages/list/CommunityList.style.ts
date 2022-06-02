@@ -51,7 +51,7 @@ export const Navbar = styled.nav`
     }
 `;
 
-export const Main = styled.main`
+export const Main = styled.section`
     width: 100%;
     margin-bottom: 6px;
     padding: 20px 30px;
@@ -63,60 +63,8 @@ export const Main = styled.main`
     }
 `;
 
-export const MainHeader = styled.header`
-    display: flex;
-    margin-bottom: 20px;
-
-    div {
-        width: 32px;
-        height: 32px;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-`;
-
-export const HeaderSection = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 7px;
-`;
-
-export const HeaderText = styled.span`
-    color: ${({ color }) => color};
-    font-weight: ${({ bold }: { bold: boolean }) => (bold ? 700 : 500)};
-    font-size: 1.2rem;
-`;
-
 export const MainContent = styled.section`
     margin-bottom: 15px;
-
-    h1 {
-        margin-bottom: 6px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 1.6rem;
-    }
-
-    span {
-        display: block;
-        height: 44px;
-        margin-bottom: 17px;
-        color: ${theme.gray05};
-        font-weight: 400;
-        font-size: 1.4rem;
-    }
-
-    img {
-        width: 100%;
-        height: 160px;
-        border-radius: 4px;
-        object-fit: cover;
-    }
 `;
 
 export const MainFooter = styled.footer`
