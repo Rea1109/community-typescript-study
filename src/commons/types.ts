@@ -10,7 +10,7 @@ export type Post = {
     commentCount: number;
     content: string;
     id: number;
-    imageUrl: null | string;
+    imageUrl: string[];
     likeCount: number;
     title: string;
     viewCount: number;

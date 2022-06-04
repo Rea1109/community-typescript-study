@@ -24,7 +24,7 @@ export const BoardContent = styled.span(({ ml, mr, size }: { ml?: string; mr?: s
 
 export const BoardImage = styled.img`
     width: 100%;
-    height: 160px;
+    height: ${({ height }: { height: string }) => height};
     border-radius: 4px;
     object-fit: cover;
 `;
@@ -37,7 +37,7 @@ export default function Board({
 }: {
     title?: string;
     content?: string;
-    imageUrl?: string | null;
+    imageUrl?: string[];
     page?: string;
 }) {
     return page === 'list' ? (
@@ -46,7 +46,7 @@ export default function Board({
                 {replaceTitle(title || '')}
             </BoardTitle>
             <BoardContent size="1.4rem">{replaceText(content || '')}</BoardContent>
-            {imageUrl && <BoardImage src={imageUrl} alt="content" />}
+            {imageUrl && imageUrl.length !== 0 && <BoardImage src={imageUrl?.[0]} alt="content" height="160px" />}
         </>
     ) : (
         <>
@@ -56,7 +56,9 @@ export default function Board({
             <BoardContent ml="26px" mr="26px" size="1.6rem">
                 {content}
             </BoardContent>
-            {imageUrl && <BoardImage src={imageUrl} alt="content" />}
+            {imageUrl?.map(url => (
+                <BoardImage key={url} src={url} alt="content" height="" />
+            ))}
         </>
     );
 }
