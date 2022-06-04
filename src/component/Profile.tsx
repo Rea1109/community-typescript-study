@@ -4,7 +4,8 @@ import { theme } from '../commons/theme';
 
 export const ProfileHeader = styled.header`
     display: flex;
-    margin-bottom: 20px;
+    margin: ${({ page }: { page: string | undefined }) =>
+        page === 'detail' ? '0px 20px 20px 20px' : '0px 0px 20px 0px'};
 
     div {
         width: 32px;
@@ -35,14 +36,16 @@ export default function Profile({
     nickName,
     categoryName,
     writtenAt,
+    page,
 }: {
     profileUrl?: string;
     nickName?: string;
     categoryName?: string;
     writtenAt?: string;
+    page?: string;
 }) {
     return (
-        <ProfileHeader>
+        <ProfileHeader page={page}>
             <div>
                 <img src={profileUrl} alt="profile" />
             </div>
