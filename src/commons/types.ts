@@ -18,3 +18,13 @@ export type BoardContent = {
     writerProfileUrl: string;
     writtenAt: string;
 };
+
+export type InputBoardContent = {
+    title: string;
+    text: string;
+};
+
+export type InputCategory = {
+    pk: number;
+    name: string;
+};
