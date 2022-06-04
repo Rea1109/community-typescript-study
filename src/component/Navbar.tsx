@@ -1,8 +1,9 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, MouseEvent, useContext } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '../commons/theme';
 import axios from 'axios';
-import { Category, Post } from '../commons/types';
+import { BoardContent } from '../commons/types';
+import { CategoryContext } from '../contexts/CategoryContext';
 
 const NavbarWrapper = styled.nav`
     width: 100%;
@@ -47,9 +48,8 @@ const CategoryButton = styled.li`
     }
 `;
 
-export default function Navbar({ setBoards }: { setBoards: React.Dispatch<React.SetStateAction<Post[]>> }) {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [category, setCategory] = useState(0);
+export default function Navbar({ setBoards }: { setBoards: React.Dispatch<React.SetStateAction<BoardContent[]>> }) {
+    const { categories, category, setCategory } = useContext(CategoryContext);
 
     const getBoards = async () => {
         const { data } = await axios.get('http://localhost:3001/posts');
@@ -66,34 +66,30 @@ export default function Navbar({ setBoards }: { setBoards: React.Dispatch<React.
         setBoards(data);
     };
 
-    const getCategories = async () => {
-        const { data } = await axios.get('http://localhost:3001/categories');
-        setCategories(data);
+    const checkCategory = (categoryNumber: number) => {
+        if (categoryNumber === 0) {
+            getBoards();
+        } else if (categoryNumber === 6) {
+            getBestBoards();
+        } else {
+            getCategoryBoards(categoryNumber);
+        }
     };
 
     const onClickCategory = (id: number) => (event: MouseEvent<HTMLElement>) => {
         setCategory(id);
-
-        if (id === 0) {
-            getBoards();
-        } else if (id === 6) {
-            getBestBoards();
-        } else {
-            getCategoryBoards(id);
-        }
+        checkCategory(id);
     };
 
     const handleSelect = (id: number) => {
         if (category === id) {
             return true;
         }
-
         return false;
     };
 
     useEffect(() => {
-        getCategories();
-        getBoards();
+        checkCategory(category);
     }, []);
 
     return (
@@ -107,7 +103,7 @@ export default function Navbar({ setBoards }: { setBoards: React.Dispatch<React.
                     <span>⭐️ 인기글</span>
                 </CategoryButton>
 
-                {categories.map(el => (
+                {categories?.map(el => (
                     <CategoryButton selected={handleSelect(el.id)} key={el.id} onClick={onClickCategory(el.id)}>
                         <span>{el.categoryName}</span>
                     </CategoryButton>

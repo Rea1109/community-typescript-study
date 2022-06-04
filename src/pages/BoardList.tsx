@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import viewicon from '../assets/images/boardList/eye.png';
@@ -6,7 +6,7 @@ import likeicon from '../assets/images/boardList/like.png';
 import commenticon from '../assets/images/boardList/comment.png';
 import Profile from '../component/Profile';
 import Board from '../component/Board';
-import { Post } from '../commons/types';
+import { BoardContent } from '../commons/types';
 import { theme } from '../commons/theme';
 import Navbar from '../component/Navbar';
 import axios from 'axios';
@@ -79,8 +79,9 @@ const NewButton = styled.button`
 `;
 
 export default function BoardList() {
-    const [boards, setBoards] = useState<Post[]>([]);
+    const [boards, setBoards] = useState<BoardContent[]>([]);
     const route = useNavigate();
+    let isThrottle = false;
 
     const updateViewCount = async (id: number, index: number) => {
         await axios.patch(`http://localhost:3001/posts/${id}`, {
@@ -97,8 +98,26 @@ export default function BoardList() {
         route('/community/post/new');
     };
 
+    const onWheel = () => {
+        if (!isThrottle) {
+            isThrottle = true;
+            setListScrollY();
+            setTimeout(() => {
+                isThrottle = false;
+            }, 300);
+        }
+    };
+
+    const setListScrollY = () => {
+        localStorage.setItem('Y', String(window.scrollY));
+    };
+
+    useEffect(() => {
+        window.scrollTo(0, Number(localStorage.getItem('Y')));
+    });
+
     return (
-        <ListWrapper>
+        <ListWrapper onWheel={onWheel}>
             <NewButton onClick={onClickNewBoard}>글쓰기 ✍️</NewButton>
             <Title>커뮤니티</Title>
             <Navbar setBoards={setBoards} />

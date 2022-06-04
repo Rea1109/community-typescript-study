@@ -6,8 +6,8 @@
 
     - [x] React , Typescript 개발
     - [x] Git version 관리
-    - [ ] 로컬 환경 프로젝트 실행
-    - [ ] mock server 활용 (필요시)
+    - [x] 로컬 환경 프로젝트 실행
+    - [x] mock server 활용 (필요시)
 
 2. 세부사항
 

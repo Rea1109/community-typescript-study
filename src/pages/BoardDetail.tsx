@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Post } from '../commons/types';
+import { BoardContent } from '../commons/types';
 import Board from '../component/Board';
 import Profile from '../component/Profile';
 import styled from '@emotion/styled';
@@ -67,7 +67,7 @@ const DetailFooter = styled.footer`
 `;
 
 export default function BoardDetail() {
-    const [board, setBoard] = useState<Post>();
+    const [board, setBoard] = useState<BoardContent>();
     const [isLike, setIsLike] = useState(false);
     const { post_pk: id } = useParams();
     const route = useNavigate();
@@ -86,10 +86,6 @@ export default function BoardDetail() {
         getBoard(id);
     };
 
-    const onClickBack = () => {
-        route('/community');
-    };
-
     const onClickLike = () => {
         updateLikeCount();
     };
@@ -100,7 +96,7 @@ export default function BoardDetail() {
 
     return (
         <DetailWrapper>
-            <DetailHeader onClick={onClickBack}>
+            <DetailHeader onClick={() => route('/community')}>
                 <img src={backicon} alt="back icon" />
                 <span>글 목록으로</span>
             </DetailHeader>

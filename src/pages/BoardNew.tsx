@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from '@emotion/styled';
 import backicon from '../assets/images/boardDetail/back.png';
 import { theme } from '../commons/theme';
 
 import UploadImage from '../component/UploadImage';
+import { CategoryContext } from '../contexts/CategoryContext';
+import { useNavigate } from 'react-router-dom';
 
 const NewWrapper = styled.main`
     max-width: 360px;
@@ -66,6 +68,8 @@ const InputText = styled.textarea`
 
 export default function BoardNew() {
     const [imageUrl, setImageUrl] = useState<string[]>([]);
+    const { categories } = useContext(CategoryContext);
+    const route = useNavigate();
 
     const submit = () => {
         console.log(imageUrl);
@@ -74,7 +78,7 @@ export default function BoardNew() {
     return (
         <NewWrapper>
             <NewHeader>
-                <img src={backicon} alt="back icon" />
+                <img src={backicon} alt="back icon" onClick={() => route('/community')} />
                 <h1>글쓰기</h1>
                 <HeaderButton disable={false} onClick={submit}>
                     완료
@@ -85,8 +89,11 @@ export default function BoardNew() {
                     <option value="" defaultChecked>
                         카테고리
                     </option>
-                    <option value="">대선청원</option>
-                    <option value="">자유글</option>
+                    <option value="">전체</option>
+                    <option value="">인기글</option>
+                    {categories?.map(el => (
+                        <option key={el.id}>{el.categoryName}</option>
+                    ))}
                 </CategorySelect>
                 <InputTitle type="text" placeholder="제목을 작성해주세요" />
                 <InputText placeholder="내용을 작성해주세요" />

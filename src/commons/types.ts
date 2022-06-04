@@ -4,7 +4,7 @@ export type Category = {
     id: number;
 };
 
-export type Post = {
+export type BoardContent = {
     categoryName: string;
     categoryPk: number;
     commentCount: number;

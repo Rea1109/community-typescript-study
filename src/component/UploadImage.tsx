@@ -115,7 +115,7 @@ export default function UploadImage({
     const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files !== null) {
             const fileList = Array.prototype.slice.call(event.target.files);
-            const previewList = fileList.filter((file, idx) => {
+            const previewList = fileList.filter(file => {
                 return checkValidationFile(file);
             });
 
