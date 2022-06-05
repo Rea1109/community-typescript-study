@@ -48,3 +48,43 @@
     - [과제 피그마](https://www.figma.com/file/X4P7NoRQ1D5YqlSCwtOeDa/%EC%9E%90%EB%A6%AC%ED%86%A1-%EA%B3%BC%EC%A0%9C?node-id=0%3A1)
 
 ### 구현 설명
+
+1. Get start
+
+    ```
+     npm install
+     npm start
+    ```
+
+2. 폴더 구조
+
+    ```
+     - .vscode
+       - settings.json: 코드 포맷터 설정
+     - @types
+       - global: typescript 이미지파일 모듈 선언
+     - src:
+       - assets: static 파일 (font , image)
+       - commons: util성 라이브러, 공통 변수, 타입
+       - component: 공통으로 사용되는 컴포넌트
+       - contexts: contextApi provider
+       - pages: 화면에 보여지는 페이지
+       - data.json : mock db
+    ```
+
+3. 사용 라이브러리
+
+    - json-server : mock server로 활용
+    - concurrently : npm script 커스텀
+    - emotion
+    - axios
+    - react-router-dom
+    - uuid : node key 값 설정
+    - prettier / eslint : 코드 포멧터
+
+4. 기타
+    - 화면은 360\*720 기준으로 퍼블리싱 했습니다.
+
+> 좋은 과제 주셔서 감사합니다.  
+> 이번 기회에 어떤 부분이 부족한지 , 더 공부해야할 부분은 어디인지
+> 확인 할 수 있었습니다.
