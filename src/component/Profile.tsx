@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from '../commons/theme';
+import { replaceDate } from '../commons/util';
 
 export const ProfileHeader = styled.header`
     display: flex;
@@ -54,7 +55,7 @@ export default function Profile({
                     {nickName}
                 </HeaderText>
                 <HeaderText color={theme.gray01} bold={false}>
-                    {categoryName} ・ {writtenAt}
+                    {categoryName} ・ {replaceDate(writtenAt || '')}
                 </HeaderText>
             </HeaderSection>
         </ProfileHeader>

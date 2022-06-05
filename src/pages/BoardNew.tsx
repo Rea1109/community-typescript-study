@@ -8,11 +8,13 @@ import { CategoryContext } from '../contexts/CategoryContext';
 import { useNavigate } from 'react-router-dom';
 import { InputBoardContent, InputCategory } from '../commons/types';
 import axios from 'axios';
+import SelectCategory from '../component/SelectCategory';
 
 const NewWrapper = styled.main`
     max-width: 360px;
     width: 100%;
     background-color: white;
+    font-family: ${theme.title};
 `;
 
 const NewHeader = styled.header`
@@ -21,6 +23,10 @@ const NewHeader = styled.header`
     align-items: center;
     padding: 0px 20px;
     height: 56px;
+
+    h1 {
+        margin-left: 20px;
+    }
 
     img {
         :hover {
@@ -45,13 +51,6 @@ const HeaderButton = styled.button`
 const InputContent = styled.section`
     display: flex;
     flex-direction: column;
-`;
-
-const CategorySelect = styled.select`
-    height: 45px;
-    padding: 10px 0px 11px 20px;
-    border: none;
-    border-top: 1px solid #e8e8e8;
 `;
 
 const InputTitle = styled.input`
@@ -89,29 +88,29 @@ const InputText = styled.textarea`
 export default function BoardNew() {
     const [imageUrl, setImageUrl] = useState<string[]>([]);
     const [boardContent, setBoardContent] = useState<InputBoardContent>({ title: '', text: '' });
-    const [boardCategory, setBoardCategory] = useState<InputCategory>({ pk: 0, name: 'none' });
-    const { categories, lastBoardId, setLastBoardId } = useContext(CategoryContext);
+    const [boardCategory, setBoardCategory] = useState<InputCategory>({ pk: 0, name: '카테고리' });
+    const { lastBoardId, setLastBoardId } = useContext(CategoryContext);
     const route = useNavigate();
 
     const submit = async () => {
         if (inputValidation()) {
-            const { data } = await axios.post('http://localhost:3001/posts', {
+            await axios.post('http://localhost:3001/posts', {
                 categoryPk: boardCategory.pk,
                 categoryName: boardCategory.name,
-                id: 49,
+                id: lastBoardId,
                 title: boardContent.title,
                 content: boardContent.text,
                 viewCount: 0,
                 likeCount: 0,
                 commentCount: 0,
                 imageUrl,
-                writtenAt: new Date().toISOString,
+                writtenAt: new Date().toISOString(),
                 writerNickName: '무늬만여우',
                 writerProfileUrl: 'https://static.zaritalk.com/profiles/profile-57-img-chick-39-39%403x.png',
             });
-            setLastBoardId(lastBoardId + 1);
-
-            route(`/community/post/${data.id}`);
+            localStorage.removeItem('Y');
+            route(`/community/list`);
+            setLastBoardId(pre => pre + 1);
         }
     };
 
@@ -119,15 +118,8 @@ export default function BoardNew() {
         setBoardContent(pre => ({ ...pre, [event.target.id]: event.target.value }));
     };
 
-    const onChangeCategory = (event: ChangeEvent<HTMLSelectElement>) => {
-        setBoardCategory({
-            pk: Number(event.target.selectedOptions[0].id),
-            name: event.target.value,
-        });
-    };
-
     const inputValidation = () => {
-        if (boardCategory.name !== 'none' && boardContent.title !== '' && boardContent.text !== '') {
+        if (boardCategory.name !== '카테고리' && boardContent.title !== '' && boardContent.text !== '') {
             return true;
         } else {
             return false;
@@ -137,23 +129,14 @@ export default function BoardNew() {
     return (
         <NewWrapper>
             <NewHeader>
-                <img src={backicon} alt="back icon" onClick={() => route('/community')} />
+                <img src={backicon} alt="back icon" onClick={() => route('/community/list')} />
                 <h1>글쓰기</h1>
                 <HeaderButton able={inputValidation()} onClick={submit}>
                     완료
                 </HeaderButton>
             </NewHeader>
             <InputContent>
-                <CategorySelect value={boardCategory.name} onChange={onChangeCategory}>
-                    <option value="none" disabled>
-                        카테고리
-                    </option>
-                    {categories?.map(el => (
-                        <option key={el.id} id={String(el.id)} value={el.categoryName}>
-                            {el.categoryName}
-                        </option>
-                    ))}
-                </CategorySelect>
+                <SelectCategory boardCategory={boardCategory} setBoardCategory={setBoardCategory} />
                 <InputTitle
                     type="text"
                     placeholder="제목을 작성해주세요"

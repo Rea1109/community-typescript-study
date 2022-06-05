@@ -15,7 +15,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/community" element={<BoardList />} />
+                <Route path="/community/list" element={<BoardList />} />
                 <Route path="/community/post/:post_pk" element={<BoardDetail />} />
                 <Route path="/community/post/new" element={<BoardNew />} />
             </Routes>

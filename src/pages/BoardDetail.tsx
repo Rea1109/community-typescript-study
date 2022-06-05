@@ -26,7 +26,7 @@ const DetailHeader = styled.header`
     span {
         margin-left: 11px;
         color: #b4b4b4;
-        font-weight: 700;
+        font-family: ${theme.title};
         font-size: 1.4rem;
 
         :hover {
@@ -96,7 +96,7 @@ export default function BoardDetail() {
 
     return (
         <DetailWrapper>
-            <DetailHeader onClick={() => route('/community')}>
+            <DetailHeader onClick={() => route('/community/list')}>
                 <img src={backicon} alt="back icon" />
                 <span>글 목록으로</span>
             </DetailHeader>

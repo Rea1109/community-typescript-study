@@ -10,8 +10,10 @@ import { BoardContent } from '../commons/types';
 import { theme } from '../commons/theme';
 import Navbar from '../component/Navbar';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export const ListWrapper = styled.div`
+    position: relative;
     max-width: 360px;
     width: 100%;
 `;
@@ -24,7 +26,9 @@ export const Title = styled.h1`
     font-size: 2.2rem;
 `;
 
-export const MainWrapper = styled.main``;
+export const MainWrapper = styled.main`
+    position: relative;
+`;
 
 export const Main = styled.section`
     width: 100%;
@@ -62,10 +66,11 @@ export const MainFooter = styled.footer`
 
 const NewButton = styled.button`
     position: fixed;
-    top: 80%;
-    right: 5%;
+    top: 660px;
+    right: 20px;
     width: 100px;
     height: 52px;
+    margin-left: 250px;
     padding: 14px 16px;
     border: none;
     border-radius: 8px;
@@ -118,12 +123,11 @@ export default function BoardList() {
 
     return (
         <ListWrapper onWheel={onWheel}>
-            <NewButton onClick={onClickNewBoard}>글쓰기 ✍️</NewButton>
             <Title>커뮤니티</Title>
             <Navbar setBoards={setBoards} />
             <MainWrapper>
                 {boards.map((el, index) => (
-                    <Main key={el.id} onClick={onClickBoard(el.id, index)}>
+                    <Main key={uuidv4()} onClick={onClickBoard(el.id, index)}>
                         <Profile
                             profileUrl={el.writerProfileUrl}
                             nickName={el.writerNickName}
@@ -149,6 +153,7 @@ export default function BoardList() {
                         </MainFooter>
                     </Main>
                 ))}
+                <NewButton onClick={onClickNewBoard}>글쓰기 ✍️</NewButton>
             </MainWrapper>
         </ListWrapper>
     );

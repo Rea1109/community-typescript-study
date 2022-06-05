@@ -5,7 +5,7 @@ export default function Main() {
     const route = useNavigate();
 
     useEffect(() => {
-        route('/community');
+        route('/community/list');
     });
     return <div>Main</div>;
 }

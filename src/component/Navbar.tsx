@@ -4,6 +4,7 @@ import { theme } from '../commons/theme';
 import axios from 'axios';
 import { BoardContent } from '../commons/types';
 import { CategoryContext } from '../contexts/CategoryContext';
+import { v4 as uuidv4 } from 'uuid';
 
 const NavbarWrapper = styled.nav`
     width: 100%;
@@ -30,10 +31,10 @@ const CategoryButton = styled.li`
     padding: 0px 16px;
     border: 1px solid ${theme.gray02};
     border-radius: 20px;
+    background-color: ${({ selected }: { selected: boolean }) => (selected ? theme.primary : 'white')};
+    color: ${({ selected }: { selected: boolean }) => (selected ? 'white' : theme.gray05)};
     text-align: center;
     line-height: 35px;
-    color: ${({ selected }: { selected: boolean }) => (selected ? 'white' : theme.gray05)};
-    background-color: ${({ selected }: { selected: boolean }) => (selected ? theme.primary : 'white')};
 
     :hover {
         background-color: ${theme.primary};
@@ -104,7 +105,7 @@ export default function Navbar({ setBoards }: { setBoards: React.Dispatch<React.
                 </CategoryButton>
 
                 {categories?.map(el => (
-                    <CategoryButton selected={handleSelect(el.id)} key={el.id} onClick={onClickCategory(el.id)}>
+                    <CategoryButton selected={handleSelect(el.id)} key={uuidv4()} onClick={onClickCategory(el.id)}>
                         <span>{el.categoryName}</span>
                     </CategoryButton>
                 ))}

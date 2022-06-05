@@ -4,6 +4,7 @@ import { theme } from '../commons/theme';
 import { checkValidationFile } from '../commons/fileValidation';
 import closeicon from '../assets/images/boardNew/close.png';
 import pictureicon from '../assets/images/boardNew/picture.png';
+import { v4 as uuidv4 } from 'uuid';
 
 const UploadWrapper = styled.section`
     display: flex;
@@ -47,8 +48,9 @@ const PreviewPlaceHolder = styled.div`
     background-color: ${theme.gray02};
 
     h1 {
+        margin: 0px 5px;
         color: ${theme.primary};
-        font-size: 1.2rem;
+        font-size: 1rem;
         text-align: center;
         white-space: pre-wrap;
     }
@@ -150,7 +152,7 @@ export default function UploadImage({
                 <UploadPreview>
                     {imageUrl.length !== 0 ? (
                         imageUrl.map((url, index) => (
-                            <PreviewImage key={url}>
+                            <PreviewImage key={uuidv4()}>
                                 <img src={url} alt="client upload image" />
                                 <DeleteButton onClick={deleteImage(index)}>
                                     <img src={closeicon} alt="close icon" />
