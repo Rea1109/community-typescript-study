@@ -11,6 +11,5 @@
 
 ## Preview
 
--   list page
-    ![list-page](/capture/board_list.gif)(: width="50px" height="50px")
--   detail
+![list-page](/capture/board_list.gif)
+![list-page](/capture/board_add.gif)
